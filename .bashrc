@@ -14,7 +14,7 @@ if [ ! -L ~/.bashrc ]; then
         [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
     fi
     
-    mv -v ~/.bashrc ${DIR}/.bashrc.BACKUP
+    mv -v ~/.bashrc} ~/.bashrc.BACKUP
     ln -s ${DIR}/.bashrc ~/.bashrc
     
     if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
