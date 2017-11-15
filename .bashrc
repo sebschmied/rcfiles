@@ -15,7 +15,7 @@ if [ ! -L ~/.bashrc ]; then
     fi
     
     mv -v ~/.bashrc ${DIR}/.bashrc.BACKUP
-    ln -s ~/.bashrc ${DIR}/.bashrc
+    ln -s ${DIR}/.bashrc ~/.bashrc
     
     if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
         mv -v ~/.bash_aliases ${DIR}/.bash_aliases_original
