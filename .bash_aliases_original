@@ -1,1 +1,4 @@
-# Moved to ~/.rc/.bash_aliases_original
+alias ll='ls -alF'
+alias ls='ls --color=auto'
+alias funk='sudo /var/www/BERGSTATION/GenerateSounds.pl --funk_an=0 --funk_aus=24'
+
