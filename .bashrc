@@ -16,7 +16,14 @@ if [ ! -L ~/.bashrc ]; then
     
     mv -v ~/.bashrc ~/.bashrc.BACKUP
     ln -s ${DIR}/.bashrc ~/.bashrc
-fi 
+    
+    if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
+        mv -v ~/.bash_aliases ${DIR}/.bash_aliases_original
+        echo "echo \"Warning: Alias file has moved to ${DIR}/.bash_aliases_original\"" > ~/.bash_aliases
+    fi
+fi
+
+# Move the .bash_aliases to ours
 
 # Set terminal colors capabilities
 # see http://vim.wikia.com/wiki/256_colors_in_vim (comments section)
