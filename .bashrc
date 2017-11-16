@@ -3,8 +3,13 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 #get this bashrc's dir
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
+if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
+then
+    target=$(readlink -f ~/.bashrc)
+    DIR=$(dirname ${target})
+else
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+fi
 # Init this bashrc if run for the first time
 if [ ! -L ~/.bashrc ]; then
     read -p "This will overwrite the local .bashrc. Continue?" -n 1 -r
