@@ -250,6 +250,11 @@ PS1=$PS1"\342\224\224\342\224\200\342\224\200> "
 PS1=$PS1"\[\033[01;39m\]\w$sq_color"
 # Show branch if in a git directory
 PS1=$PS1"\[\033[1;39m\]\$(parse_git_branch_and_add_brackets)\[\033[0m\]"
+if [ $(hostname) == "schwarzwaldgeier.de" ] || [ $(hostname) == "meteogeier1" ]
+then
+	PS1=$PS1" SERVER! "
+fi
+
 # Separator
 PS1=$PS1"⇒ "
 
