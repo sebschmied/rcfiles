@@ -258,3 +258,10 @@ fi
 # Separator
 PS1=$PS1"⇒ "
 
+# Notify me if a recent backup failed 
+if [ -f /opt/1UND1EU/bin/ClientTool ]
+then
+	/opt/1UND1EU/bin/ClientTool  control.session.list | head | grep "Failed"
+fi
+
+
