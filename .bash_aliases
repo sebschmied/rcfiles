@@ -1,6 +1,6 @@
-alias dita='cd /home/sschmied/git/ditahelp && git --no-pager log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -n5 && git status'
-alias ditaot='cd /home/sschmied/git/ditaot-bin/dita-ot-2.2.0/plugins/de.1und1.html && git --no-pager log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -n5 && git status'
-alias metadita='cd /home/sschmied/git/metadita && git --no-pager log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" -- abbrev-commit -n5 && git status'
+alias dita='cd /home/sschmied/git/ditahelp && git --no-pager log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -n5 && git fetch && git status'
+alias ditaot='cd /home/sschmied/git/ditaot-bin/dita-ot-2.2.0/plugins/de.1und1.html && git --no-pager log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -n5 && git fetch && git status'
+alias metadita='cd /home/sschmied/git/metadita && git --no-pager log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" -- abbrev-commit -n5 && git fetch && git status'
 
 alias inst="sudo apt -y install"
 alias what="apt-cache search"
