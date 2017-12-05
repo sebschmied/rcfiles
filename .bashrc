@@ -274,3 +274,5 @@ export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 UWATCH=$(which urlwatch)
 $UWATCH
 
+echo 'Noch '$(expr '(' $(date -d 2017/12/27 +%s) - $(date +%s) + 86399 ')' / 86400) "Tage bis Almunecar"
+
