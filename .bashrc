@@ -264,15 +264,19 @@ then
 	/opt/1UND1EU/bin/ClientTool  control.session.list | head | grep "Failed"
 fi
 
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-
+if [ "$HOSTNAME" == "schwarzwaldgeier.de" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+  export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+fi
 
 
 UWATCH=$(which urlwatch)
 $UWATCH
 
 echo 'Noch '$(expr '(' $(date -d 2017/12/27 +%s) - $(date +%s) + 86399 ')' / 86400) "Tage bis Almunecar"
+
+
+
+
 
