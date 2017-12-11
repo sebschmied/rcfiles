@@ -264,7 +264,7 @@ then
 	/opt/1UND1EU/bin/ClientTool  control.session.list | head | grep "Failed"
 fi
 
-if [ "$HOSTNAME" == "schwarzwaldgeier.de" ]; then
+if [ "$HOSTNAME" == "schwarzwaldgeier.de" ] || [ "$HOSTNAME" == "LWKA-1W5BYZ1" ]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
