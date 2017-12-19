@@ -19,3 +19,5 @@ alias livegang-all=/home/sschmied/git/golive/livegang-all
 alias xp="xmllint --xpath"
 alias mergetodev=~/git/golive/mergetodev
 alias pingsitemap="tail -n 30 ~/git/golive/ping.log"
+
+alias watch="watch --differences=permanent"
