@@ -21,3 +21,7 @@ alias mergetodev=~/git/golive/mergetodev
 alias pingsitemap="tail -n 30 ~/git/golive/ping.log"
 
 alias watch="watch --differences=permanent"
+
+# Pipe stdout to clipboard, e.g. cat foo.txt | copy
+alias copy="xsel -ib"
+
