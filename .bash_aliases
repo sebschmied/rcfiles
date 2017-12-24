@@ -3,7 +3,7 @@ alias ditaot='cd /home/sschmied/git/ditaot-bin/dita-ot-2.2.0/plugins/de.1und1.ht
 alias metadita='cd /home/sschmied/git/metadita && git --no-pager log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" -- abbrev-commit -n5 && git fetch && git status'
 
 alias inst="sudo apt -y install"
-alias what="apt-cache search"
+alias what="apt show"
 alias grepr="grep -r"
 alias unixtime="date +%s"
 alias dummy='git commit --allow-empty -m "Dummy commit" && git push'

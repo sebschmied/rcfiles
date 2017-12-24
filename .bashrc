@@ -178,8 +178,8 @@ function ox(){
 # http://stackoverflow.com/a/23328996 lazy git commit
 function gt(){
     git add .
-    git commit -a -m "$*"
-    git push
+    git commit --allow-empty --all --message="${*}" --cleanup=default
+    git push --set-upstream
 }
 
 # Add an "alert" alias for long running commands.  Use like so:
