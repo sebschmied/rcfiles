@@ -269,12 +269,6 @@ if [ "$HOSTNAME" == "schwarzwaldgeier.de" ] || [ "$HOSTNAME" == "LWKA-1W5BYZ1" ]
   eval "$(rbenv init -)"
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 fi
-echo 'Noch '$(expr '(' $(date -d 2017/12/27 +%s) - $(date +%s) + 86399 ')' / 86400) "Tage bis Almunecar"
-
-
-
-
-
 
 PATH="/home/sschmied/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/sschmied/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
