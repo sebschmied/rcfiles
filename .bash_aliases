@@ -6,12 +6,14 @@ alias inst="sudo apt -y install"
 alias what="apt show"
 alias grepr="grep -r"
 alias unixtime="date +%s"
-alias dummy='git commit --allow-empty -m "Dummy commit" && git push'
+alias dummy='git commit --allow-empty && git push'
 alias clean="~/clean"
+
 alias dita-livegang="~/git/golive/dita-livegang"
 alias dita-upload="~/git/golive/dita-upload"
 alias dita-status="~/git/golive/dita-status"
 alias upload-all="~/git/golive/upload-all"
+alias autolive="~/git/golive/autolive"
 
 alias notepad=/usr/bin/gedit
 
@@ -25,3 +27,4 @@ alias watch="watch --differences=permanent"
 # Pipe stdout to clipboard, e.g. cat foo.txt | copy
 alias copy="xsel -ib"
 
+alias kantine='/home/sschmied/kantine'

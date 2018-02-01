@@ -268,7 +268,12 @@ if [ "$HOSTNAME" == "schwarzwaldgeier.de" ] || [ "$HOSTNAME" == "LWKA-1W5BYZ1" ]
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+  
+  # Speiseplan ausgeben
+  curl --silent --max-time 3 https://speiseplan.die-frischemacher.de/index.php/app/api/getFood -X POST -d "client_code=145&$(date '+year=%Y&week=%W&day=%u')" | jq -c '.Records.food[].food_menu[]|  {food_name, price} ' | sed 's/{\"food_name\":\"//g' | sed 's/\",\"price\":\"/: /g' | sed 's/\"}/€/g' | sed 's/\\//g' | sed 's/^ *//;s/ *$//'
 fi
+
+
 
 PATH="/home/sschmied/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/sschmied/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
