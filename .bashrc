@@ -270,7 +270,12 @@ if [ "$HOSTNAME" == "schwarzwaldgeier.de" ] || [ "$HOSTNAME" == "LWKA-1W5BYZ1" ]
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
   
   # Speiseplan ausgeben
-  curl --silent --max-time 3 https://speiseplan.die-frischemacher.de/index.php/app/api/getFood -X POST -d "client_code=145&$(date '+year=%Y&week=%W&day=%u')" | jq -c '.Records.food[].food_menu[]|  {food_name, price} ' | sed 's/{\"food_name\":\"//g' | sed 's/\",\"price\":\"/: /g' | sed 's/\"}/€/g' | sed 's/\\//g' | sed 's/^ *//;s/ *$//'
+  alreadyruntoday="/tmp/"$(date +%Y-%m-%d | shasum | cut -d' ' -f1) 
+  if [ ! -f ${alreadyruntoday} ]; then
+      curl --silent --max-time 3 https://speiseplan.die-frischemacher.de/index.php/app/api/getFood -X POST -d "client_code=145&$(date '+year=%Y&week=%W&day=%u')" | jq -c '.Records.food[].food_menu[]|  {food_name, price} ' | sed 's/{\"food_name\":\"//g' | sed 's/\",\"price\":\"/: /g' | sed 's/\"}/€/g' | sed 's/\\//g' | sed 's/^ *//;s/ *$//'
+      touch ${alreadyruntoday}
+  
+  fi
 fi
 
 
