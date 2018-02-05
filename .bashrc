@@ -2,6 +2,18 @@
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
+
+# Check if this is the first time we run this script today
+# We create (touch) this file at the end of this .bashrc.
+# the hashed date makes this file unique for every day, /tmp gets cleaned up by the OS automatically on reboot.
+alreadyruntodaycheckfile="/tmp/bashrc-was-run-today-at-least-once-"$(date +%Y-%m-%d | shasum | cut -c1-8) 
+if [ -f ${alreadyruntodaycheckfile} ]; then
+    firstruntoday=false
+else
+    firstruntoday=true
+fi
+
+
 #get this bashrc's dir
 if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
 then
@@ -270,11 +282,9 @@ if [ "$HOSTNAME" == "schwarzwaldgeier.de" ] || [ "$HOSTNAME" == "LWKA-1W5BYZ1" ]
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
   
   # Speiseplan ausgeben
-  alreadyruntoday="/tmp/"$(date +%Y-%m-%d | shasum | cut -d' ' -f1) 
-  if [ ! -f ${alreadyruntoday} ]; then
-      curl --silent --max-time 3 https://speiseplan.die-frischemacher.de/index.php/app/api/getFood -X POST -d "client_code=145&$(date '+year=%Y&week=%W&day=%u')" | jq -c '.Records.food[].food_menu[]|  {food_name, price} ' | sed 's/{\"food_name\":\"//g' | sed 's/\",\"price\":\"/: /g' | sed 's/\"}/€/g' | sed 's/\\//g' | sed 's/^ *//;s/ *$//'
-      touch ${alreadyruntoday}
   
+  if [ ${firstruntoday} == true ]; then
+      curl --silent --max-time 3 https://speiseplan.die-frischemacher.de/index.php/app/api/getFood -X POST -d "client_code=145&$(date '+year=%Y&week=%W&day=%u')" | jq -c '.Records.food[].food_menu[]|  {food_name, price} ' | sed 's/{\"food_name\":\"//g' | sed 's/\",\"price\":\"/: /g' | sed 's/\"}/€/g' | sed 's/\\//g' | sed 's/^ *//;s/ *$//' | column -t -s ':' 
   fi
 fi
 
@@ -285,3 +295,7 @@ PERL5LIB="/home/sschmied/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5
 PERL_LOCAL_LIB_ROOT="/home/sschmied/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/sschmied/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/sschmied/perl5"; export PERL_MM_OPT;
+
+# Tell the next iteration of this script that it has already been run.
+touch ${alreadyruntodaycheckfile} 
+
