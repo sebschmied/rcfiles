@@ -26,5 +26,5 @@ alias watch="watch --differences=permanent"
 
 # Pipe stdout to clipboard, e.g. cat foo.txt | copy
 alias copy="xsel -ib"
-
-alias kantine='/home/sschmied/kantine'
+alias kantine="curl --silent --max-time 3 https://speiseplan.die-frischemacher.de/index.php/app/api/getFood -X POST -d \"client_code=145&$(date '+year=%Y&week=%W&day=%u')\" |
+jq -c '.Records.food[].food_menu[]|  {food_name, price} ' | sed 's/{\"food_name\":\" *\(.*\)\",\"price\":\"\\(.*\\)\"}/\\1:\\2/g;s/\\\\//g' | column -t -s ':'"
