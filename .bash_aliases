@@ -15,6 +15,7 @@ alias dita-status="~/git/golive/dita-status"
 alias upload-all="~/git/golive/upload-all"
 alias autolive="~/git/golive/autolive"
 alias upload-qa="~/git/golive/upload-qa"
+alias upload-pre="~/git/golive/upload-pre"
 alias notepad=/usr/bin/gedit
 
 alias livegang-all=/home/sschmied/git/golive/livegang-all
