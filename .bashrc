@@ -278,6 +278,7 @@ fi
 
 if [ "$HOSTNAME" == "schwarzwaldgeier.de" ] || [ "$HOSTNAME" == "LWKA-1W5BYZ1" ]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
+  export PATH="$HOME/git/golive:$PATH"
   eval "$(rbenv init -)"
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
   
