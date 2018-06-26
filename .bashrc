@@ -192,6 +192,11 @@ function gedit(){
     /usr/bin/gedit $* > /dev/null 2>&1 &
 }
 
+# run shutter in background
+function shutter(){
+    /usr/bin/shutter > /dev/null 2>&1 &
+}
+
 
 # http://stackoverflow.com/a/23328996 lazy git commit
 function gt(){
