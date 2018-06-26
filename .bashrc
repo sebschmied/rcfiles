@@ -187,6 +187,12 @@ function ox(){
     /bin/sh "/home/sschmied/oxygen/oxygen17.1/oxygen17.1" $* > /dev/null 2>&1 &
 }
 
+# run gedit in background
+function gedit(){
+    /usr/bin/gedit $* > /dev/null 2>&1 &
+}
+
+
 # http://stackoverflow.com/a/23328996 lazy git commit
 function gt(){
     git add .
