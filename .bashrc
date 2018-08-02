@@ -17,7 +17,7 @@ fi
 #get this bashrc's dir
 if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
 then
-    target=$(readlink -f ~/.bashrc)
+    target=$(readlink ~/.bashrc)
     DIR=$(dirname ${target})
 else
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
