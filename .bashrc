@@ -3,7 +3,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# Check if this is the first time we run this script today
+# Check if this is the first  we run this script today
 # We create (touch) this file at the end of this .bashrc.
 # the hashed date makes this file unique for every day, /tmp gets cleaned up by the OS automatically on reboot.
 alreadyruntodaycheckfile="/tmp/bashrc-was-run-today-at-least-once-"$(date +%Y-%m-%d | shasum | cut -c1-8) 
@@ -251,7 +251,7 @@ PS1=$PS1"\$([[ \$? != 0 ]] && echo 💩)"
 # Command  history possition
 # PS1=$PS1"\342\224\200[\[\033[01;37m\]\!$sq_color]"
 # Time
-PS1=$PS1"\342\224\200[\[\033[01;39m\]\t$sq_color]"
+# sPS1=$PS1"\342\224\200[\[\033[01;39m\]\t$sq_color]"
 # User/host
 PS1=$PS1"\342\224\200[\[\033[01;39m\]\u@\h$sq_color]"
 
@@ -264,7 +264,7 @@ PS1=$PS1"\[\033[01;39m\]\w$sq_color"
 PS1=$PS1"\[\033[1;39m\]\$(parse_git_branch_and_add_brackets)\[\033[0m\]"
 
 # Separator
-PS1=$PS1"💨 "
+PS1=$PS1"🚀 "
 
 # Tell the next iteration of this script that it has already been run.
 touch ${alreadyruntodaycheckfile} 
