@@ -182,21 +182,10 @@ function cd {
     }
 
 
-# oxygen xml editor shortcut
-function ox(){
-    /bin/sh "/home/sschmied/oxygen/oxygen17.1/oxygen17.1" $* > /dev/null 2>&1 &
-}
-
 # run gedit in background
 function gedit(){
     /usr/bin/gedit $* > /dev/null 2>&1 &
 }
-
-# run shutter in background
-function shutter(){
-    /usr/bin/shutter > /dev/null 2>&1 &
-}
-
 
 # http://stackoverflow.com/a/23328996 lazy git commit
 function gt(){
@@ -257,8 +246,8 @@ else
 fi
 
 PS1="$sq_color\342\224\214"
-# Show a X when previous command failed
-PS1=$PS1"\$([[ \$? != 0 ]] && echo \"\342\224\200[\[\033[01;31m\]\342\234\227$sq_color]\")"
+# Show a fail icon when previous command failed
+PS1=$PS1"\$([[ \$? != 0 ]] && echo 💩)"
 # Command  history possition
 # PS1=$PS1"\342\224\200[\[\033[01;37m\]\!$sq_color]"
 # Time
@@ -273,41 +262,12 @@ PS1=$PS1"\342\224\224\342\224\200\342\224\200> "
 PS1=$PS1"\[\033[01;39m\]\w$sq_color"
 # Show branch if in a git directory
 PS1=$PS1"\[\033[1;39m\]\$(parse_git_branch_and_add_brackets)\[\033[0m\]"
-if [ $(hostname) == "schwarzwaldgeier.de" ] || [ $(hostname) == "meteogeier1" ]
-then
-	PS1=$PS1" SERVER! "
-fi
 
 # Separator
-PS1=$PS1"⇒ "
-
-# Notify me if a recent backup failed 
-if [ -f /opt/1UND1EU/bin/ClientTool ]
-then
-	/opt/1UND1EU/bin/ClientTool  control.session.list | head | grep "Failed"
-fi
-
-if [ "$HOSTNAME" == "schwarzwaldgeier.de" ] || [ "$HOSTNAME" == "LWKA-1W5BYZ1" ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  export PATH="$HOME/git/golive:$PATH"
-  eval "$(rbenv init -)"
-  export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-  
-  # Speiseplan ausgeben
-  
-  if [ ${firstruntoday} == true ]; then
-      curl --silent --max-time 3 https://speiseplan.die-frischemacher.de/index.php/app/api/getFood -X POST -d "client_code=145&$(date '+year=%Y&week=%W&day=%u')" | jq -c '.Records.food[].food_menu[]|  {food_name, price} ' | sed 's/{\"food_name\":\"//g' | sed 's/\",\"price\":\"/: /g' | sed 's/\"}/€/g' | sed 's/\\//g' | sed 's/^ *//;s/ *$//' | column -t -s ':' 
-  fi
-fi
-
-
-
-PATH="/home/sschmied/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/sschmied/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/sschmied/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/sschmied/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/sschmied/perl5"; export PERL_MM_OPT;
+PS1=$PS1"💨 "
 
 # Tell the next iteration of this script that it has already been run.
 touch ${alreadyruntodaycheckfile} 
 
+
+eval $(thefuck --alias)
