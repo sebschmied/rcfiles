@@ -263,7 +263,7 @@ fi
 
 PS1="$sq_color\342\224\214"
 # Show a fail icon when previous command failed
-PS1=$PS1"\$([[ \$? != 0 ]] && echo 💩)"
+#  PS1=$PS1"\$([[ \$? != 0 ]] && echo 💩)"
 # Command  history possition
 # PS1=$PS1"\342\224\200[\[\033[01;37m\]\!$sq_color]"
 # Time
@@ -277,14 +277,15 @@ PS1=$PS1"\342\224\224\342\224\200\342\224\200> "
 # Path
 PS1=$PS1"\[\033[01;39m\]\w$sq_color"
 # Show branch if in a git directory
+PS1=$PS1"\$([[ \$? != 0 ]] && echo ' 💩' || echo ' 🚀')"
 PS1=$PS1"\[\033[1;39m\]\$(parse_git_branch_and_add_brackets)\[\033[0m\]"
-if [ $(hostname) == "schwarzwaldgeier.de" ] || [ $(hostname) == "meteogeier1" ]
-then
-	PS1=$PS1" SERVER! "
-fi
 
 # Separator
-PS1=$PS1"🚀 "
+
+ucPS1=$PS1" "
+
+
+
 
 # Tell the next iteration of this script that it has already been run.
 touch ${alreadyruntodaycheckfile} 

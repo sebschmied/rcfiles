@@ -1,3 +1,4 @@
 .bash_sensitive
 .bash_aliases_original
 .bashrc.BACKUP
+*.orig
