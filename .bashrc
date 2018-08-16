@@ -2,6 +2,10 @@
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
+#are we on linux, mac, or something else?
+KERNEL=$(uname)
+
+
 
 # Check if this is the first time we run this script today
 # We create (touch) this file at the end of this .bashrc.
@@ -200,9 +204,10 @@ function shutter(){
 
 # http://stackoverflow.com/a/23328996 lazy git commit
 function gt(){
+    remotes=$(git remote)
     git add .
     git commit --allow-empty --all --message="${*}" --cleanup=default
-    git push --set-upstream
+    [ ${#remotes} -ge 1 ] && git push --set-upstream || echo "No remote, no push."
 }
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -310,4 +315,22 @@ PERL_MM_OPT="INSTALL_BASE=/home/sschmied/perl5"; export PERL_MM_OPT;
 
 # Tell the next iteration of this script that it has already been run.
 touch ${alreadyruntodaycheckfile} 
+PATH=/usr/local/bin:$PATH
+eval 
+            function fuck () {
+                TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+                export TF_SHELL=bash;
+                export TF_ALIAS=fuck;
+                export TF_SHELL_ALIASES=$(alias);
+                export TF_HISTORY=$(fc -ln -10);
+                export PYTHONIOENCODING=utf-8;
+                TF_CMD=$(
+                    thefuck THEFUCK_ARGUMENT_PLACEHOLDER $@
+                ) && eval $TF_CMD;
+                unset TF_HISTORY;
+                export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+                history -s $TF_CMD;
+            }
+        
 
+eval $(thefuck --alias)
