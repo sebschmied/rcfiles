@@ -277,12 +277,12 @@ PS1=$PS1"\342\224\224\342\224\200\342\224\200> "
 # Path
 PS1=$PS1"\[\033[01;39m\]\w$sq_color"
 # Show branch if in a git directory
-PS1=$PS1"\$([[ \$? != 0 ]] && echo ' 💩' || echo ' 🚀')"
+PS1=$PS1"\$([[ \$? != 0 ]] && echo ' 💩 ' || echo ' 🚀 ')"
 PS1=$PS1"\[\033[1;39m\]\$(parse_git_branch_and_add_brackets)\[\033[0m\]"
 
 # Separator
 
-ucPS1=$PS1" "
+PS1=$PS1" "
 
 
 
