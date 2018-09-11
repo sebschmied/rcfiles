@@ -1,48 +1,38 @@
+#!/usr/bin/env bash
 ## Based on Mxlian's bashrc, who based it "on many sources" ##
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+# [ -z "$PS1" ] && return
 #are we on linux, mac, or something else?
 KERNEL=$(uname)
 
 
 
-# Check if this is the first time we run this script today
-# We create (touch) this file at the end of this .bashrc.
-# the hashed date makes this file unique for every day, /tmp gets cleaned up by the OS automatically on reboot.
-alreadyruntodaycheckfile="/tmp/bashrc-was-run-today-at-least-once-"$(date +%Y-%m-%d | shasum | cut -c1-8) 
-if [ -f ${alreadyruntodaycheckfile} ]; then
-    firstruntoday=false
-else
-    firstruntoday=true
-fi
-
-
 #get this bashrc's dir
-if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
-then
-    target=$(readlink ~/.bashrc)
-    DIR=$(dirname ${target})
-else
+#if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
+#then
+#    target=$(readlink ~/.bashrc)
+#    DIR=$(dirname ${target})
+#else
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-fi
+#fi
 # Init this bashrc if run for the first time
-if [ ! -L ~/.bashrc ]; then
-    read -p "This will overwrite the local .bashrc. Continue?" -n 1 -r
-    echo    # (optional) move to a new line
-    if [[ ! $REPLY =~ ^[Yy]$ ]]
-    then
-        [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
-    fi
+# if [ ! -L ~/.bashrc ]; then
+  #  read -p "This will overwrite the local .bashrc. Continue?" -n 1 -r
+   # echo    # (optional) move to a new line
+    #if [[ ! $REPLY =~ ^[Yy]$ ]]
+    #then
+    #    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+    #fi
     
-    mv -v ~/.bashrc ~/.bashrc.BACKUP
-    ln -s ${DIR}/.bashrc ~/.bashrc
+    #mv -v ~/.bashrc ~/.bashrc.BACKUP
+    #ln -s ${DIR}/.bashrc ~/.bashrc
     
-    if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
-        mv -v ~/.bash_aliases ${DIR}/.bash_aliases_original
-        echo "echo \"Warning: Alias file has moved to ${DIR}/.bash_aliases_original\"" > ~/.bash_aliases
-    fi
-fi
+    #if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
+     #   mv -v ~/.bash_aliases ${DIR}/.bash_aliases_original
+     #   echo "echo \"Warning: Alias file has moved to ${DIR}/.bash_aliases_original\"" > ~/.bash_aliases
+    #fi
+#fi
 
 # Move the .bash_aliases to ours
 
@@ -272,7 +262,7 @@ PS1="$sq_color\342\224\214"
 PS1=$PS1"\342\224\200[\[\033[01;39m\]\u@\h$sq_color]"
 
 PS1=$PS1"\n"
-PS1=$PS1"\342\224\224\342\224\200\342\224\200> " 
+# PS1=$PS1"\342\224\224\342\224\200\342\224\200> "
 
 # Path
 PS1=$PS1"\[\033[01;39m\]\w$sq_color"
@@ -288,7 +278,7 @@ PS1=$PS1" "
 
 
 # Tell the next iteration of this script that it has already been run.
-touch ${alreadyruntodaycheckfile} 
+# touch ${alreadyruntodaycheckfile} 
 PATH=/usr/local/bin:$PATH
 eval 
             function fuck () {
@@ -308,3 +298,7 @@ eval
         
 
 eval $(thefuck --alias)
+curl --silent -I --fail https://hilfe.netid.de/index.html > /dev/null && echo "netid live"
+
+export PATH="/usr/local/sbin:$PATH"
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
