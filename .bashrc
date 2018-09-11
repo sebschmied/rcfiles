@@ -3,36 +3,33 @@
 
 # If not running interactively, don't do anything
 # [ -z "$PS1" ] && return
-#are we on linux, mac, or something else?
-KERNEL=$(uname)
-
-
 
 #get this bashrc's dir
-#if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
-#then
-#    target=$(readlink ~/.bashrc)
-#    DIR=$(dirname ${target})
-#else
+if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
+then
+    target=$(readlink ~/.bashrc)
+    DIR=$(dirname ${target})
+else
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-#fi
+fi
+
 # Init this bashrc if run for the first time
-# if [ ! -L ~/.bashrc ]; then
-  #  read -p "This will overwrite the local .bashrc. Continue?" -n 1 -r
-   # echo    # (optional) move to a new line
-    #if [[ ! $REPLY =~ ^[Yy]$ ]]
-    #then
-    #    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
-    #fi
+ if [ ! -L ~/.bashrc ]; then
+ read -p "This will overwrite the local .bashrc. Continue?" -n 1 -r
+   echo    # (optional) move to a new line
+   if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+        [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+    fi
     
-    #mv -v ~/.bashrc ~/.bashrc.BACKUP
-    #ln -s ${DIR}/.bashrc ~/.bashrc
+    mv -v ~/.bashrc ~/.bashrc.BACKUP
+    ln -s ${DIR}/.bashrc ~/.bashrc
     
-    #if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
-     #   mv -v ~/.bash_aliases ${DIR}/.bash_aliases_original
-     #   echo "echo \"Warning: Alias file has moved to ${DIR}/.bash_aliases_original\"" > ~/.bash_aliases
-    #fi
-#fi
+    if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
+        mv -v ~/.bash_aliases ${DIR}/.bash_aliases_original
+        echo "echo \"Warning: Alias file has moved to ${DIR}/.bash_aliases_original\"" > ~/.bash_aliases
+    fi
+fi
 
 # Move the .bash_aliases to ours
 
@@ -132,9 +129,9 @@ xterm*|rxvt*)
 esac
 
 # Maxi: Add git information to command prommt 
-    function parse_git_branch_and_add_brackets {
-      git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
-    }
+function parse_git_branch_and_add_brackets {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
+}
 
 ### Command overrides/aliases ###
 
@@ -173,22 +170,6 @@ complete -cf sudo
 
 function cd {
     builtin cd "$@" && ls -F
-    }
-
-
-# oxygen xml editor shortcut
-function ox(){
-    /bin/sh "/home/sschmied/oxygen/oxygen17.1/oxygen17.1" $* > /dev/null 2>&1 &
-}
-
-# run gedit in background
-function gedit(){
-    /usr/bin/gedit $* > /dev/null 2>&1 &
-}
-
-# run shutter in background
-function shutter(){
-    /usr/bin/shutter > /dev/null 2>&1 &
 }
 
 
@@ -274,13 +255,8 @@ PS1=$PS1"\[\033[1;39m\]\$(parse_git_branch_and_add_brackets)\[\033[0m\]"
 
 PS1=$PS1" "
 
-
-
-
-# Tell the next iteration of this script that it has already been run.
-# touch ${alreadyruntodaycheckfile} 
 PATH=/usr/local/bin:$PATH
-eval 
+eval
             function fuck () {
                 TF_PYTHONIOENCODING=$PYTHONIOENCODING;
                 export TF_SHELL=bash;
@@ -298,7 +274,6 @@ eval
         
 
 eval $(thefuck --alias)
-curl --silent -I --fail https://hilfe.netid.de/index.html > /dev/null && echo "netid live"
 
 export PATH="/usr/local/sbin:$PATH"
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
