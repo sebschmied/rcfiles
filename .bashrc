@@ -8,7 +8,7 @@
 if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
 then
     target=$(readlink ~/.bashrc)
-    DIR=$(dirname ${target})
+    DIR="$(dirname "${target}")"
 else
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 fi
@@ -19,14 +19,14 @@ fi
    echo    # (optional) move to a new line
    if [[ ! $REPLY =~ ^[Yy]$ ]]
     then
-        [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
-    fi
+        [[ "$0" = "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
+fi
     
     mv -v ~/.bashrc ~/.bashrc.BACKUP
-    ln -s ${DIR}/.bashrc ~/.bashrc
+    ln -s "${DIR}"/.bashrc ~/.bashrc
     
-    if [ -f ~/.bash_aliases ] && [ ! -f ${DIR}/.bash_aliases_original ]; then
-        mv -v ~/.bash_aliases ${DIR}/.bash_aliases_original
+    if [ -f ~/.bash_aliases ] && [ ! -f "${DIR}"/.bash_aliases_original ]; then
+        mv -v ~/.bash_aliases "${DIR}"/.bash_aliases_original
         echo "echo \"Warning: Alias file has moved to ${DIR}/.bash_aliases_original\"" > ~/.bash_aliases
     fi
 fi
@@ -37,7 +37,7 @@ fi
 # see http://vim.wikia.com/wiki/256_colors_in_vim (comments section)
 
 ### Colors
-SCREEN_COLORS="`tput colors`"
+SCREEN_COLORS="$(tput colors)"
 if [ -z "$SCREEN_COLORS" ] ; then
     case "$TERM" in
         screen-*color-bce)
@@ -53,7 +53,7 @@ if [ -z "$SCREEN_COLORS" ] ; then
             export TERM=xterm-256color
             ;;
     esac
-    SCREEN_COLORS=`tput colors`
+    SCREEN_COLORS=$(tput colors)
 else
     case "$SCREEN_COLORS" in
         8)
@@ -78,7 +78,7 @@ if [ -z "$SCREEN_COLORS" ] ; then
             export TERM=screen
             ;;
     esac
-    SCREEN_COLORS=`tput colors`
+    SCREEN_COLORS=$(tput colors)
 fi
 
 ### Bash defaults
@@ -122,7 +122,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
     ;;
 *)
     ;;
@@ -135,25 +135,12 @@ function parse_git_branch_and_add_brackets {
 
 ### Command overrides/aliases ###
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias ls='ls -G'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
-fi
 
 # ls shortcuts
 alias ll='ls -alF'
@@ -186,18 +173,19 @@ function gt(){
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # other Aliases
-if [ -f ${DIR}/.bash_aliases ]; then
-    . ${DIR}/.bash_aliases
+if [ -f "${DIR}"/.bash_aliases ]; then
+# shellcheck source=/Users/d441152/rcfiles/.bash_aliases
+    source "${DIR}"/.bash_aliases
 fi
 
 # other Aliases
-if [ -f ${DIR}/.bash_sensitive ]; then
-    . ${DIR}/.bash_sensitive
+if [ -f "${DIR}"/.bash_sensitive ]; then
+    source "${DIR}"/.bash_sensitive
 fi
 
 # imported aliases
-if [ -f ${DIR}/.bash_aliases_original ]; then
-    . ${DIR}/.bash_aliases_original
+if [ -f "${DIR}"/.bash_aliases_original ]; then
+    . "${DIR}"/.bash_aliases_original
 fi
 
 
@@ -256,6 +244,7 @@ PS1=$PS1"\[\033[1;39m\]\$(parse_git_branch_and_add_brackets)\[\033[0m\]"
 PS1=$PS1" "
 
 PATH=/usr/local/bin:$PATH
+
 eval
             function fuck () {
                 TF_PYTHONIOENCODING=$PYTHONIOENCODING;
@@ -265,7 +254,7 @@ eval
                 export TF_HISTORY=$(fc -ln -10);
                 export PYTHONIOENCODING=utf-8;
                 TF_CMD=$(
-                    thefuck THEFUCK_ARGUMENT_PLACEHOLDER $@
+                    thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@"
                 ) && eval $TF_CMD;
                 unset TF_HISTORY;
                 export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
