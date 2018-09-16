@@ -15,7 +15,7 @@ fi
 
 # Init this bashrc if run for the first time
  if [ ! -L ~/.bashrc ]; then
- read -p "This will overwrite the local .bashrc. Continue?" -n 1 -r
+ read -p "This will overwrite the local bashrc. Continue?" -n 1 -r
    echo    # (optional) move to a new line
    if [[ ! $REPLY =~ ^[Yy]$ ]]
     then
@@ -23,15 +23,15 @@ fi
 fi
     
     mv -v ~/.bashrc ~/.bashrc.BACKUP
-    ln -s "${DIR}"/.bashrc ~/.bashrc
+    ln -s "${DIR}"/bashrc ~/.bashrc
     
-    if [ -f ~/.bash_aliases ] && [ ! -f "${DIR}"/.bash_aliases_original ]; then
-        mv -v ~/.bash_aliases "${DIR}"/.bash_aliases_original
-        echo "echo \"Warning: Alias file has moved to ${DIR}/.bash_aliases_original\"" > ~/.bash_aliases
+    if [ -f ~/bash_aliases ] && [ ! -f "${DIR}"/bash_aliases_original ]; then
+        mv -v ~/bash_aliases "${DIR}"/bash_aliases_original
+        echo "echo \"Warning: Alias file has moved to ${DIR}/bash_aliases_original\"" > ~/bash_aliases
     fi
 fi
 
-# Move the .bash_aliases to ours
+# Move the bash_aliases to ours
 
 # Set terminal colors capabilities
 # see http://vim.wikia.com/wiki/256_colors_in_vim (comments section)
@@ -173,9 +173,9 @@ function gt(){
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # other Aliases
-if [ -f "${DIR}"/.bash_aliases ]; then
-# shellcheck source=/Users/d441152/rcfiles/.bash_aliases
-    source "${DIR}"/.bash_aliases
+if [ -f "${DIR}"/bash_aliases ]; then
+# shellcheck source=/Users/d441152/rcfiles/bash_aliases
+    source "${DIR}"/bash_aliases
 fi
 
 # other Aliases
@@ -184,8 +184,8 @@ if [ -f "${DIR}"/.bash_sensitive ]; then
 fi
 
 # imported aliases
-if [ -f "${DIR}"/.bash_aliases_original ]; then
-    . "${DIR}"/.bash_aliases_original
+if [ -f "${DIR}"/bash_aliases_original ]; then
+    . "${DIR}"/bash_aliases_original
 fi
 
 
@@ -212,13 +212,7 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
-# From maxi:
-# To use red on root and blue on normal user
-if [[ ${EUID} == 0 ]] ; then
-    sq_color="\[\033[0;31m\]"
-else        
-    sq_color="\[\033[1;30m\]"
-fi
+sq_color="\[\033[0;39m\]"
 
 PS1="$sq_color\342\224\214"
 # Show a fail icon when previous command failed
