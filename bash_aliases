@@ -20,47 +20,47 @@ alias tdl="todolist l"
 
 # ghost in the shell part 3
 # SHORT QUERY FUNCTIONS q()
-  q() {
-    if [ ${#} -eq 1 ]
-    then
-      ls | grep --color -i ${1} 2> /dev/null
-    else
-      echo "usage: q string"
-    fi
-  }
+q() {
+	if [ ${#} -eq 1 ]
+	then
+		ls | grep --color -i ${1} 2> /dev/null
+	else
+		echo "usage: q string"
+	fi
+}
 
 # SHORT QUERY FUNCTIONS Q()
-  Q() {
-    if [ ${#} -eq 1 ]
-    then
-      ls | grep --color ${1} 2> /dev/null
-    else
-      echo "usage: Q string"
-    fi
-  }
+Q() {
+	if [ ${#} -eq 1 ]
+	then
+		ls | grep --color ${1} 2> /dev/null
+	else
+		echo "usage: Q string"
+	fi
+}
 
 # SHORT QUERY FUNCTIONS qq()
-  qq() {
-    if [ ${#} -eq 1 ]
-    then
-      find . \
-        | grep -i ${1} 2> /dev/null \
-        | cut -c 3-999 \
-        | grep --color -i ${1} 2> /dev/null
-    else
-      echo "usage: qq string"
-    fi
-  }
+qq() {
+	if [ ${#} -eq 1 ]
+	then
+		find . \
+			| grep -i ${1} 2> /dev/null \
+			| cut -c 3-999 \
+			| grep --color -i ${1} 2> /dev/null
+				else
+					echo "usage: qq string"
+				fi
+			}
 
 # SHORT QUERY FUNCTIONS QQ()
-  QQ() {
-    if [ ${#} -eq 1 ]
-    then
-      find . \
-        | grep ${1} 2> /dev/null \
-        | cut -c 3-999 \
-        | grep ${1} 2> /dev/null
-    else
-      echo "usage: QQ string"
-    fi
-  }
+QQ() {
+	if [ ${#} -eq 1 ]
+	then
+		find . \
+			| grep ${1} 2> /dev/null \
+			| cut -c 3-999 \
+			| grep ${1} 2> /dev/null
+				else
+					echo "usage: QQ string"
+				fi
+			}
