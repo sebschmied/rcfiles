@@ -7,77 +7,77 @@
 #get this bashrc's dir
 if [ -L ~/.bashrc ] #dirty assume that this is already a symlink to here
 then
-  target=$(readlink ~/.bashrc)
-  DIR="$(dirname "${target}")"
+    target=$(readlink ~/.bashrc)
+    DIR="$(dirname "${target}")"
 else
-  DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 fi
 
 # Init this bashrc if run for the first time
 if [ ! -L ~/.bashrc ]; then
-  read -p "This will overwrite the local bashrc. Continue?" -n 1 -r
-  echo    # (optional) move to a new line
-  if [[ ! $REPLY =~ ^[Yy]$ ]]
-  then
-    [[ "$0" = "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
-  fi
+    read -p "This will overwrite the local bashrc. Continue?" -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+        [[ "$0" = "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
+    fi
 
-  mv -v ~/.bashrc ~/.bashrc.BACKUP
-  ln -s "${DIR}"/bashrc ~/.bashrc
+    mv -v ~/.bashrc ~/.bashrc.BACKUP
+    ln -s "${DIR}"/bashrc ~/.bashrc
 
-  if [ -f ~/bash_aliases ] && [ ! -f "${DIR}"/bash_aliases_original ]; then
-    mv -v ~/bash_aliases "${DIR}"/bash_aliases_original
-    echo "echo \"Warning: Alias file has moved to ${DIR}/bash_aliases_original\"" > ~/bash_aliases
-  fi
+    if [ -f ~/bash_aliases ] && [ ! -f "${DIR}"/bash_aliases_original ]; then
+        mv -v ~/bash_aliases "${DIR}"/bash_aliases_original
+        echo "echo \"Warning: Alias file has moved to ${DIR}/bash_aliases_original\"" > ~/bash_aliases
+    fi
 fi
 
 if [ ! -L ~/.vimrc ]; then
-  sh ~/rcfiles/vimrc/install_awesome_vimrc.sh
+    sh ~/rcfiles/vimrc/install_awesome_vimrc.sh
 fi
 
 ### Colors
 SCREEN_COLORS="$(tput colors)"
 if [ -z "$SCREEN_COLORS" ] ; then
-  case "$TERM" in
-    screen-*color-bce)
-      echo "Unknown terminal $TERM. Falling back to 'screen-bce'."
-      export TERM=screen-bce
-      ;;
-    *-88color)
-      echo "Unknown terminal $TERM. Falling back to 'xterm-88color'."
-      export TERM=xterm-88color
-      ;;
-    *-256color)
-      echo "Unknown terminal $TERM. Falling back to 'xterm-256color'."
-      export TERM=xterm-256color
-      ;;
-  esac
-  SCREEN_COLORS=$(tput colors)
+    case "$TERM" in
+        screen-*color-bce)
+            echo "Unknown terminal $TERM. Falling back to 'screen-bce'."
+            export TERM=screen-bce
+            ;;
+        *-88color)
+            echo "Unknown terminal $TERM. Falling back to 'xterm-88color'."
+            export TERM=xterm-88color
+            ;;
+        *-256color)
+            echo "Unknown terminal $TERM. Falling back to 'xterm-256color'."
+            export TERM=xterm-256color
+            ;;
+    esac
+    SCREEN_COLORS=$(tput colors)
 else
-  case "$SCREEN_COLORS" in
-    8)
-      :
-      #echo "Using linux terminal? Trying fbterm for 256 color..."
-      #export TERM=fbterm
-      ;;
-  esac
+    case "$SCREEN_COLORS" in
+        8)
+            :
+            #echo "Using linux terminal? Trying fbterm for 256 color..."
+            #export TERM=fbterm
+            ;;
+    esac
 fi
 if [ -z "$SCREEN_COLORS" ] ; then
-  case "$TERM" in
-    gnome*|xterm*|konsole*|aterm|[Ee]term)
-      echo "Unknown terminal $TERM. Falling back to 'xterm'."
-      export TERM=xterm
-      ;;
-    rxvt*)
-      echo "Unknown terminal $TERM. Falling back to 'rxvt'."
-      export TERM=rxvt
-      ;;
-    screen*)
-      echo "Unknown terminal $TERM. Falling back to 'screen'."
-      export TERM=screen
-      ;;
-  esac
-  SCREEN_COLORS=$(tput colors)
+    case "$TERM" in
+        gnome*|xterm*|konsole*|aterm|[Ee]term)
+            echo "Unknown terminal $TERM. Falling back to 'xterm'."
+            export TERM=xterm
+            ;;
+        rxvt*)
+            echo "Unknown terminal $TERM. Falling back to 'rxvt'."
+            export TERM=rxvt
+            ;;
+        screen*)
+            echo "Unknown terminal $TERM. Falling back to 'screen'."
+            export TERM=screen
+            ;;
+    esac
+    SCREEN_COLORS=$(tput colors)
 fi
 
 ### Bash defaults
@@ -108,28 +108,28 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 if [ "$color_prompt" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-  xterm*|rxvt*)
-    PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
-    ;;
-  *)
-    ;;
+    xterm*|rxvt*)
+        PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
+        ;;
+    *)
+        ;;
 esac
 
 # Maxi: Add git information to command prommt 
 function parse_git_branch_and_add_brackets {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
 
 ### Command overrides/aliases ###
@@ -155,16 +155,16 @@ complete -cf sudo
 # ls when changing to another directory
 
 function cd {
-  builtin cd "$@" && ls -F
+    builtin cd "$@" && ls -F
 }
 
 
 # http://stackoverflow.com/a/23328996 lazy git commit
 function gt(){
-  remotes=$(git remote)
-  git add .
-  git commit --allow-empty --all --message="${*}" --cleanup=default
-  [ ${#remotes} -ge 1 ] && git push --set-upstream || echo "No remote, no push."
+    remotes=$(git remote)
+    git add .
+    git commit --allow-empty --all --message="${*}" --cleanup=default
+    [ ${#remotes} -ge 1 ] && git push --set-upstream || echo "No remote, no push."
 }
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -173,18 +173,18 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # other Aliases
 if [ -f "${DIR}"/bash_aliases ]; then
-  # shellcheck source=/Users/d441152/rcfiles/bash_aliases
-  source "${DIR}"/bash_aliases
+    # shellcheck source=/Users/d441152/rcfiles/bash_aliases
+    source "${DIR}"/bash_aliases
 fi
 
 # other Aliases
 if [ -f "${DIR}"/.bash_sensitive ]; then
-  source "${DIR}"/.bash_sensitive
+    source "${DIR}"/.bash_sensitive
 fi
 
 # imported aliases
 if [ -f "${DIR}"/bash_aliases_original ]; then
-  . "${DIR}"/bash_aliases_original
+    . "${DIR}"/bash_aliases_original
 fi
 
 
@@ -196,30 +196,24 @@ fi
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
-  else
-    color_prompt=
-  fi
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
+    else
+        color_prompt=
+    fi
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-  xterm-color) color_prompt=yes;;
+    xterm-color) color_prompt=yes;;
 esac
 
 sq_color="\[\033[0;39m\]"
 
 PS1="$sq_color\342\224\214"
-# Show a fail icon when previous command failed
-#  PS1=$PS1"\$([[ \$? != 0 ]] && echo 💩)"
-# Command  history possition
-# PS1=$PS1"\342\224\200[\[\033[01;37m\]\!$sq_color]"
-# Time
-# sPS1=$PS1"\342\224\200[\[\033[01;39m\]\t$sq_color]"
 # User/host
 PS1=$PS1"\342\224\200[\[\033[01;39m\]\u@\h$sq_color]"
 
@@ -240,18 +234,18 @@ PATH=/usr/local/bin:$PATH
 
 eval
 function fuck () {
-  TF_PYTHONIOENCODING=$PYTHONIOENCODING;
-  export TF_SHELL=bash;
-  export TF_ALIAS=fuck;
-  export TF_SHELL_ALIASES=$(alias);
-  export TF_HISTORY=$(fc -ln -10);
-  export PYTHONIOENCODING=utf-8;
-  TF_CMD=$(
-  thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@"
-  ) && eval $TF_CMD;
-  unset TF_HISTORY;
-  export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
-  history -s $TF_CMD;
+    TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+    export TF_SHELL=bash;
+    export TF_ALIAS=fuck;
+    export TF_SHELL_ALIASES=$(alias);
+    export TF_HISTORY=$(fc -ln -10);
+    export PYTHONIOENCODING=utf-8;
+    TF_CMD=$(
+    thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@"
+    ) && eval $TF_CMD;
+    unset TF_HISTORY;
+    export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+    history -s $TF_CMD;
 }
 
 
