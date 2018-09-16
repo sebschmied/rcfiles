@@ -32,7 +32,7 @@ if [ ! -L ~/.bashrc ]; then
 fi
 
 if [ ! -L ~/.vimrc ]; then
-  ln -s "${DIR}"/vimrc ~/.vimrc
+  sh ~/rcfiles/vimrc/install_awesome_vimrc.sh
 fi
 
 ### Colors
