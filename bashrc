@@ -232,24 +232,26 @@ PS1=$PS1" "
 
 PATH=/usr/local/bin:$PATH
 
-eval
-function fuck () {
-    TF_PYTHONIOENCODING=$PYTHONIOENCODING;
-    export TF_SHELL=bash;
-    export TF_ALIAS=fuck;
-    export TF_SHELL_ALIASES=$(alias);
-    export TF_HISTORY=$(fc -ln -10);
-    export PYTHONIOENCODING=utf-8;
-    TF_CMD=$(
-    thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@"
-    ) && eval $TF_CMD;
-    unset TF_HISTORY;
-    export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
-    history -s $TF_CMD;
-}
+if command -v fuck; then
+    eval
+    function fuck () {
+        TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+        export TF_SHELL=bash;
+        export TF_ALIAS=fuck;
+        export TF_SHELL_ALIASES=$(alias);
+        export TF_HISTORY=$(fc -ln -10);
+        export PYTHONIOENCODING=utf-8;
+        TF_CMD=$(
+        thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@"
+        ) && eval $TF_CMD;
+        unset TF_HISTORY;
+        export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+        history -s $TF_CMD;
+    }
 
 
-eval $(thefuck --alias)
+    eval $(thefuck --alias)
 
+fi
 export PATH="/usr/local/sbin:$PATH"
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
