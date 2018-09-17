@@ -31,7 +31,7 @@ if [ ! -L ~/.bashrc ]; then
     fi
 fi
 
-if [ ! -L ~/.vimrc ]; then
+if [ ! -f ~/.vimrc ]; then
     sh ~/rcfiles/vimrc/install_awesome_vimrc.sh
 fi
 
