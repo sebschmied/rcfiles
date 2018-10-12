@@ -19,6 +19,7 @@ alias tda="todolist a"
 alias todo="todolist"
 alias tdl="todolist l"
 
+alias google="googler"
 # ghost in the shell part 3
 # SHORT QUERY FUNCTIONS q()
 q() {

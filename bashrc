@@ -232,7 +232,7 @@ PS1=$PS1" "
 
 PATH=/usr/local/bin:$PATH
 
-if command -v fuck; then
+if command -v fuck > /dev/null 2>&1; then
     eval
     function fuck () {
         TF_PYTHONIOENCODING=$PYTHONIOENCODING;
