@@ -127,7 +127,7 @@ case "$TERM" in
         ;;
 esac
 
-# Maxi: Add git information to command prommt 
+# Maxi: Add git information to command prommt
 function parse_git_branch_and_add_brackets {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
@@ -255,3 +255,13 @@ if command -v fuck > /dev/null 2>&1; then
 fi
 export PATH="/usr/local/sbin:$PATH"
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+alias git='LANG=en_EN git'
+
+source /Users/d441152/Library/Preferences/org.dystroy.broot/launcher/bash/br
+# dhv gebrauchtmarkt alert
+
+# SEARCHTERM="zeno"
+# curl -m 1 -s https://www.dhv.de/db3/gebrauchtmarkt/anzeigen?suchbegriff=$SEARCHTERM|sed -n '/<div class="bodytext">/,/<\/div>/p'|sed 's/\s*<div class="bodytext">\s*//'|sed 's/\s*<\/div>\s*//'|awk '{$1=$1;print}'|sed '/^$/d' > "$HOME/.ggzNew"
+curl -m 1 -s https://www.mein-laborergebnis.de/ergebnis/B28141-FCAB3CE1-934F-4B72-9FD2-EC4233DA49EE > "$HOME/.ggzNew"
+cmp --silent "$HOME/.ggzOld" "$HOME/.ggzNew" ||  { cat "$HOME/.ggzNew"; echo "https://www.mein-laborergebnis.de/ergebnis/B28141-FCAB3CE1-934F-4B72-9FD2-EC4233DA49EE"; mv -f "$HOME/.ggzNew" "$HOME/.ggzOld";}

@@ -66,3 +66,14 @@ QQ() {
           echo "usage: QQ string"
         fi
       }
+
+  function iterm2_print_user_vars() {
+   it2git
+ }
+
+
+alias vaghost="sed -i -e 's/\[127\.0\.0\.1\]\:2222.*//g' $HOME/.ssh/known_hosts"
+alias pdeploy=$HOME/git/dam-prod-deploy/dam-prod-deploy.sh
+
+alias gt=$HOME/git/lazycommit/lazycommit.sh
+
